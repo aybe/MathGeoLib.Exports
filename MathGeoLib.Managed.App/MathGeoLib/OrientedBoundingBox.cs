@@ -2,9 +2,7 @@
 using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 #if UNITY || UNITY_EDITOR
-using Plane = UnityEngine.Plane;
-using Ray = UnityEngine.Ray;
-using Vector3 = UnityEngine.Vector3;
+using UnityEngine;
 
 #endif
 

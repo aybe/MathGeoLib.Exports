@@ -1,9 +1,10 @@
-﻿using System.Runtime.InteropServices;
-using JetBrains.Annotations;
-
-#if UNITY || UNITY_EDITOR
+﻿#if UNITY || UNITY_EDITOR
 // using Unity type
 #else
+
+using System.Runtime.InteropServices;
+using JetBrains.Annotations;
+
 // ReSharper disable once CheckNamespace
 namespace MathGeoLib
 {
