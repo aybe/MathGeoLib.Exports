@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 
-#if UNITY
+#if UNITY || UNITY_EDITOR
 using Vector3 = UnityEngine.Vector3;
 #endif
 

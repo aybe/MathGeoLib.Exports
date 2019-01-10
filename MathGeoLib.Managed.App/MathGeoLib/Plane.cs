@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 
-#if UNITY
+#if UNITY || UNITY_EDITOR
 #else
 
 // ReSharper disable once CheckNamespace

@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 
-#if UNITY
+#if UNITY || UNITY_EDITOR
 using Plane = UnityEngine.Plane;
 using Vector3 = UnityEngine.Vector3;
 #endif
@@ -21,7 +21,7 @@ namespace MathGeoLib
 
         private static class NativeMethods
         {
-#if UNITY
+#if UNITY || UNITY_EDITOR
             private const string DllName = "MathGeoLib.Exports";
 #else
             private const string DllName = "MathGeoLib.Exports.dll";
