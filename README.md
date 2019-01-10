@@ -3,7 +3,7 @@
 - adds C exports for oriented bounding box
 - adds trivial C# wrapper + support for Unity
 
-![](sample-unity-obb.png)
+![](sample-obb-unity.png)
 
 Users, grab it at https://github.com/aybe/MathGeoLib.Exports/releases.
 
