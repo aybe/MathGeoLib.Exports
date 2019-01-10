@@ -2,8 +2,8 @@
 using JetBrains.Annotations;
 
 #if UNITY || UNITY_EDITOR
+// using Unity type
 #else
-
 // ReSharper disable once CheckNamespace
 namespace MathGeoLib
 {

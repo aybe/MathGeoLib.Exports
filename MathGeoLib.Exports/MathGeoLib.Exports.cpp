@@ -45,9 +45,39 @@ API void obb_point_inside(OBB *obb, float x, float y, float z, vec *point)
 	*point = obb->PointInside(x, y, z);
 }
 
-API bool obb_contains(OBB *obb, vec *point)
+API bool obb_contains_point(OBB *obb, vec *other)
 {
-	return obb->Contains(*point);
+	return obb->Contains(*other);
+}
+
+API bool obb_contains_obb(OBB *obb, OBB *other)
+{
+	return obb->Contains(*other);
+}
+
+API bool obb_contains_line_segment(OBB *obb, LineSegment *other)
+{
+	return obb->Contains(*other);
+}
+
+API bool obb_intersects_line_segment(OBB *obb, LineSegment *other)
+{
+	return obb->Intersects(*other);
+}
+
+API bool obb_intersects_ray(OBB *obb, Ray *other)
+{
+	return obb->Intersects(*other);
+}
+
+API bool obb_intersects_plane(OBB *obb, Plane *other)
+{
+	return obb->Intersects(*other);
+}
+
+API bool obb_intersects_obb(OBB *obb, OBB *other)
+{
+	return obb->Intersects(*other);
 }
 
 API void obb_corner_point(OBB *obb, int index, vec *point)
@@ -113,4 +143,14 @@ API void obb_local_to_world(OBB *obb, float3x4 *world)
 API void obb_face_plane(OBB *obb, int index, Plane *plane)
 {
 	*plane = obb->FacePlane(index);
+}
+
+API bool obb_is_finite(OBB *obb)
+{
+	return obb->IsFinite();
+}
+
+API bool obb_is_degenerate(OBB *obb)
+{
+	return obb->IsDegenerate();
 }

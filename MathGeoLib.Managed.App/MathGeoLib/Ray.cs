@@ -9,23 +9,23 @@ namespace MathGeoLib
 {
     [PublicAPI]
     [StructLayout(LayoutKind.Sequential)]
-    public struct Plane
+    public struct Ray
     {
-        public readonly Vector3 Normal;
+        public readonly Vector3 Origin;
 
-        public readonly float Distance;
+        public readonly Vector3 Direction;
 
-        public Plane(Vector3 normal, float distance)
+        public Ray(Vector3 point1, Vector3 point2)
         {
-            Normal = normal;
-            Distance = distance;
+            Origin = point1;
+            Direction = point2;
         }
 
         public override string ToString()
         {
-            return $"{nameof(Normal)}: {Normal}, {nameof(Distance)}: {Distance}";
+            return $"{nameof(Origin)}: {Origin}, {nameof(Direction)}: {Direction}";
         }
     }
 }
 
-#endif // !UNITY
+#endif

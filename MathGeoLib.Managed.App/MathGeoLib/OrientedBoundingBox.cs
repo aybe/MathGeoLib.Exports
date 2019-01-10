@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using JetBrains.Annotations;
-
 #if UNITY || UNITY_EDITOR
 using Plane = UnityEngine.Plane;
+using Ray = UnityEngine.Ray;
 using Vector3 = UnityEngine.Vector3;
+
 #endif
 
 #pragma warning disable IDE1006 // naming rules blah blah blah
@@ -51,9 +52,63 @@ namespace MathGeoLib
 
             [DllImport(DllName)]
             [return: MarshalAs(UnmanagedType.I1)]
-            public static extern bool obb_contains(
+            public static extern bool obb_contains_point(
                 [In] [Out] OrientedBoundingBox box,
-                Vector3 point
+                Vector3 other
+            );
+
+            [DllImport(DllName)]
+            [return: MarshalAs(UnmanagedType.I1)]
+            public static extern bool obb_contains_line_segment(
+                [In] [Out] OrientedBoundingBox box,
+                Line other
+            );
+
+            [DllImport(DllName)]
+            [return: MarshalAs(UnmanagedType.I1)]
+            public static extern bool obb_contains_obb(
+                [In] [Out] OrientedBoundingBox box,
+                OrientedBoundingBox other
+            );
+
+            [DllImport(DllName)]
+            [return: MarshalAs(UnmanagedType.I1)]
+            public static extern bool obb_intersects_obb(
+                [In] [Out] OrientedBoundingBox box,
+                OrientedBoundingBox other
+            );
+
+            [DllImport(DllName)]
+            [return: MarshalAs(UnmanagedType.I1)]
+            public static extern bool obb_intersects_line_segment(
+                [In] [Out] OrientedBoundingBox box,
+                Line other
+            );
+
+            [DllImport(DllName)]
+            [return: MarshalAs(UnmanagedType.I1)]
+            public static extern bool obb_intersects_ray(
+                [In] [Out] OrientedBoundingBox box,
+                Ray other
+            );
+
+            [DllImport(DllName)]
+            [return: MarshalAs(UnmanagedType.I1)]
+            public static extern bool obb_intersects_plane(
+                [In] [Out] OrientedBoundingBox box,
+                Plane other
+            );
+
+            [DllImport(DllName)]
+            [return: MarshalAs(UnmanagedType.I1)]
+            public static extern bool obb_is_finite(
+                [In] [Out] OrientedBoundingBox box
+            );
+
+            [DllImport(DllName)]
+            [return: MarshalAs(UnmanagedType.I1)]
+            public static extern bool obb_is_degenerate(
+                [In] [Out] OrientedBoundingBox box
             );
 
             [DllImport(DllName)]
@@ -104,7 +159,7 @@ namespace MathGeoLib
             [DllImport(DllName)]
             public static extern void obb_edge(
                 [In] [Out] OrientedBoundingBox box,
-                int index, out Line3 segment
+                int index, out Line segment
             );
 
             [DllImport(DllName)]
@@ -193,9 +248,43 @@ namespace MathGeoLib
 
         #region Instance
 
-        public bool Contains(Vector3 point)
+        public bool IsDegenerate => NativeMethods.obb_is_degenerate(this);
+
+        public bool IsFinite => NativeMethods.obb_is_finite(this);
+
+        public bool Contains(Vector3 other)
         {
-            return NativeMethods.obb_contains(this, point);
+            return NativeMethods.obb_contains_point(this, other);
+        }
+
+        public bool Contains(Line other)
+        {
+            return NativeMethods.obb_contains_line_segment(this, other);
+        }
+
+        public bool Contains(OrientedBoundingBox other)
+        {
+            return NativeMethods.obb_contains_obb(this, other);
+        }
+
+        public bool Intersects(OrientedBoundingBox other)
+        {
+            return NativeMethods.obb_intersects_obb(this, other);
+        }
+
+        public bool Intersects(Ray other)
+        {
+            return NativeMethods.obb_intersects_ray(this, other);
+        }
+
+        public bool Intersects(Plane other)
+        {
+            return NativeMethods.obb_intersects_plane(this, other);
+        }
+
+        public bool Intersects(Line other)
+        {
+            return NativeMethods.obb_intersects_line_segment(this, other);
         }
 
         public Vector3 CornerPoint(int index)
@@ -242,7 +331,7 @@ namespace MathGeoLib
             return point;
         }
 
-        public Line3 Edge(int index)
+        public Line Edge(int index)
         {
             NativeMethods.obb_edge(this, index, out var segment);
             return segment;

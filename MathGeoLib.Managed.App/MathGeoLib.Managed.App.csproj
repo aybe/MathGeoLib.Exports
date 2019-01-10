@@ -67,9 +67,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MathGeoLib\Line3.cs" />
+    <Compile Include="MathGeoLib\Ray.cs" />
+    <Compile Include="MathGeoLib\Line.cs" />
     <Compile Include="MathGeoLib\Matrix3X4.cs" />
     <Compile Include="MathGeoLib\OrientedBoundingBox.cs" />
+    <Compile Include="MathGeoLib\OrientedBoundingBoxExtensions.cs" />
     <Compile Include="MathGeoLib\Plane.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
