@@ -177,6 +177,13 @@ namespace MathGeoLib
                 [In] [Out] OrientedBoundingBox box,
                 int index, out Plane plane
             );
+
+            [DllImport(DllName)]
+            public static extern void obb_random_point_on_surface(
+                [In] OrientedBoundingBox box,
+                LCG rng,
+                out Vector3 outVec
+            );
         }
 
         #endregion
@@ -187,10 +194,10 @@ namespace MathGeoLib
 
         public Vector3 Center;
         public Vector3 Extent;
-        public Vector3 Axis1;
-        public Vector3 Axis2;
-        public Vector3 Axis3;
-
+        public Vector3 Right;
+        public Vector3 Up;
+        public Vector3 Forward;
+        
         #endregion
 
         #region Constructors
@@ -201,13 +208,13 @@ namespace MathGeoLib
             // for serialization
         }
 
-        public OrientedBoundingBox(Vector3 center, Vector3 extent, Vector3 axis1, Vector3 axis2, Vector3 axis3)
+        public OrientedBoundingBox(Vector3 center, Vector3 extent, Vector3 right, Vector3 up, Vector3 forward)
         {
             Center = center;
             Extent = extent;
-            Axis1 = axis1;
-            Axis2 = axis2;
-            Axis3 = axis3;
+            Right = right;
+            Up = up;
+            Forward = forward;
         }
 
         #endregion
@@ -245,7 +252,7 @@ namespace MathGeoLib
         #endregion
 
         #region Instance
-
+        
         public bool IsDegenerate => NativeMethods.obb_is_degenerate(this);
 
         public bool IsFinite => NativeMethods.obb_is_finite(this);
@@ -356,6 +363,12 @@ namespace MathGeoLib
         public override string ToString()
         {
             return $"{nameof(Center)}: {Center}, {nameof(Extent)}: {Extent}";
+        }
+
+        public Vector3 RandomPointOnSurface(LCG rng)
+        {
+            NativeMethods.obb_random_point_on_surface(this, rng, out var point);
+            return point;
         }
 
         #endregion
