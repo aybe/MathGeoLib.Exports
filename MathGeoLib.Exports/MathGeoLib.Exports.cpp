@@ -154,3 +154,44 @@ API bool obb_is_degenerate(OBB *obb)
 {
 	return obb->IsDegenerate();
 }
+
+API void obb_random_point_on_surface(OBB *obb, LCG rng, vec *outVector)
+{
+	*outVector = obb->RandomPointOnSurface(rng);
+}
+
+API void lcg_seed(LCG* lcg, u32 seed, u32 multiplier, u32 increment, u32 modulus) {
+	lcg->Seed(seed, multiplier, increment, modulus);
+}
+
+API u32 lcg_int_fast(LCG* lcg) {
+	return lcg->IntFast();
+}
+
+API u32 lcg_int(LCG* lcg) {
+	return lcg->Int();
+}
+
+API u32 lcg_int_range(LCG* lcg, int a, int b) {
+	return lcg->Int(a, b);
+}
+
+API float lcg_float(LCG* lcg) {
+	return lcg->Float();
+}
+
+API float lcg_float_01_incl(LCG* lcg) {
+	return lcg->Float01Incl();
+}
+
+API float lcg_float_neg(LCG* lcg) {
+	return lcg->FloatNeg1_1();
+}
+
+API float lcg_float_range(LCG* lcg, float a, float b) {
+	return lcg->Float(a, b);
+}
+
+API float lcg_float_incl(LCG* lcg, float a, float b) {
+	return lcg->FloatIncl(a, b);
+}
